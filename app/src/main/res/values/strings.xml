@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">szybkiezakupki</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+
+    <string name="enter_your_email">Wpisz swoj email</string>
+    <string name="enter_your_pass">Wpisz swoje haslo</string>
+    <string name="retype_your_pass">Wpisz ponownie swoje haslo</string>
+    <string name="not_registered">Nie zarejestrowany?</string>
+    <string name="register">Zarejestruj sie</string>
+    <string name="alredy_register">Masz juz konto?</string>
+    <string name="login">Zaloguj sie</string>
+    <string name="dodaj_produkt">Wpisz nazwe produktu</string>
+
+
+
+</resources>

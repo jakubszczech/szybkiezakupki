@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "968070959762",
+    "firebase_url": "https://szybkiezakupki-509ff-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "szybkiezakupki-509ff",
+    "storage_bucket": "szybkiezakupki-509ff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:968070959762:android:2651f8013ecd93426a0c4b",
+        "android_client_info": {
+          "package_name": "com.example.szybkiezakupki"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "968070959762-s1o53b2bbi1olpb6897urp5r0kkggm0b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-ICGe1W87NXdLqp8l8Mzdw6SPv5xInQA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "968070959762-s1o53b2bbi1olpb6897urp5r0kkggm0b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
