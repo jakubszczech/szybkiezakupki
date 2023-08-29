@@ -26,7 +26,7 @@ class HomeFragment : Fragment(), AddProductFragment.DialogNextBtnClickListener,
     private  lateinit var databaseRef : DatabaseReference
     private lateinit var navController: NavController
     private  lateinit var binding: FragmentHomeBinding
-    private  lateinit var popUpDialog: AddProductFragment
+    private var popUpDialog: AddProductFragment?= null
     private lateinit var adapter: ProductAdapter
     private lateinit var mList:MutableList<ProductData>
 
@@ -46,6 +46,10 @@ class HomeFragment : Fragment(), AddProductFragment.DialogNextBtnClickListener,
         init(view)
         getDataFromFirebase()
         addProducts()
+
+        binding.ProfileBtn.setOnClickListener{
+            navController.navigate(R.id.action_homeFragment_to_profileFragment)
+        }
     }
 
     private fun getDataFromFirebase() {
@@ -72,9 +76,11 @@ class HomeFragment : Fragment(), AddProductFragment.DialogNextBtnClickListener,
 
     private fun addProducts() {
         binding.btnAdd.setOnClickListener{
+           if(popUpDialog!= null)
+           childFragmentManager.beginTransaction().remove(popUpDialog!!).commit()
             popUpDialog= AddProductFragment()
-            popUpDialog.setListener(this)
-            popUpDialog.show(childFragmentManager, "AddProductFragment")
+            popUpDialog!!.setListener(this)
+            popUpDialog!!.show(childFragmentManager, AddProductFragment.TAG)
         }
     }
 
@@ -107,7 +113,23 @@ class HomeFragment : Fragment(), AddProductFragment.DialogNextBtnClickListener,
             {
                 Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT).show()
             }
-            popUpDialog.dismiss()
+            etProductName.text= null
+            popUpDialog!!.dismiss()
+        }
+    }
+
+    override fun onUpdateProd(ProductData: ProductData, etProductName: TextInputEditText) {
+        val map= HashMap<String, Any>()
+        map[ProductData.taskId]= ProductData.task
+        databaseRef.updateChildren(map).addOnCompleteListener {
+            if (it.isSuccessful) {
+                Toast.makeText(context, "Zmodyfikowano", Toast.LENGTH_SHORT).show()
+
+            } else {
+                Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT).show()
+            }
+            etProductName.text= null
+            popUpDialog!!.dismiss()
         }
     }
 
@@ -125,7 +147,14 @@ class HomeFragment : Fragment(), AddProductFragment.DialogNextBtnClickListener,
     }
 
     override fun onEditTaskBtnClicked(ProductData: ProductData) {
-        TODO("Not yet implemented")
+        if(popUpDialog!=null)
+            childFragmentManager.beginTransaction().remove(popUpDialog!!).commit()
+
+
+            popUpDialog= AddProductFragment.newInstance(ProductData.taskId, ProductData.task)
+            popUpDialog!!.setListener(this)
+            popUpDialog!!.show(childFragmentManager, AddProductFragment.TAG)
+
     }
 
 

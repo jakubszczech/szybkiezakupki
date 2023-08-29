@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.szybkiezakupki.R
@@ -19,7 +20,7 @@ class SigninFragment : Fragment() {
     private lateinit var navController: NavController
     private lateinit var mAuth: FirebaseAuth
     private lateinit var binding: FragmentSigninBinding
-
+    private var backPressedOnce = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,10 +33,33 @@ class SigninFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        //blokowanie powrotu bo wylogowaniu
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (backPressedOnce) {
+                    requireActivity().finish()  // Zamknij aplikację po dwukrotnym kliknięciu
+                } else {
+                    backPressedOnce = true
+                    Toast.makeText(requireContext(), "Kliknij ponownie, aby zamknąć aplikację", Toast.LENGTH_SHORT).show()
+
+                    // Reset flagi po określonym czasie (np. 2 sekundy)
+                    view?.postDelayed({ backPressedOnce = false }, 2000)
+                }
+                // Obsługa naciśnięcia przycisku "Wstecz"
+                // Tutaj możesz nie robić nic lub wyświetlić odpowiednie powiadomienie
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+
+
+
+        ///////////////////////////////////
         init(view)
 
         binding.textViewSignUp.setOnClickListener {
-            navController.navigate(R.id.action_signinFragment_to_signup2Fragment)
+            navController.navigate(R.id.action_signinFragment_to_signupFragment)
         }
 
         binding.nextBtn.setOnClickListener {
@@ -46,7 +70,7 @@ class SigninFragment : Fragment() {
 
                 loginUser(email, pass)
             else
-                Toast.makeText(context, "Empty fields are not allowed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Puste pola nie sa dozwolone", Toast.LENGTH_SHORT).show()
         }
     }
 

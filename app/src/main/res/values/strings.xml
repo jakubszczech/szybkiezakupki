@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">szybkiezakupki</string>
+    <string name="app_name">Szybkie Zakupki!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sign_in">Sign In</string>
@@ -13,7 +13,10 @@
     <string name="alredy_register">Masz juz konto?</string>
     <string name="login">Zaloguj sie</string>
     <string name="dodaj_produkt">Wpisz nazwe produktu</string>
-
+    <string name="shop_name">Podaj nazwę sklepu</string>
+    <string name="shop_address">Podaj adres sklepu</string>
+    <string name="client_name">Podaj Imie</string>
+    <string name="client_surname">Podaj Nazwisko</string>
 
 
 </resources>
