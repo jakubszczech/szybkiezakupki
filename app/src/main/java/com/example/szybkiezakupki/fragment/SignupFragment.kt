@@ -20,7 +20,7 @@ class SignupFragment : Fragment() {
     private lateinit var navController: NavController
     private lateinit var mAuth: FirebaseAuth
     private lateinit var binding: FragmentSignupBinding
-
+    private lateinit var accType: Boolean
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +45,7 @@ class SignupFragment : Fragment() {
             val email = binding.emailEt.text.toString()
             val pass = binding.passEt.text.toString()
             val verifyPass = binding.verifyPassEt.text.toString()
+            accType = binding.accTypeChB.isChecked
 
             if (email.isNotEmpty() && pass.isNotEmpty() && verifyPass.isNotEmpty()) {
                 if (pass == verifyPass) {

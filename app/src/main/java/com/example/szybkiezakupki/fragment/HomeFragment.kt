@@ -1,5 +1,6 @@
 package com.example.szybkiezakupki.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -74,6 +75,7 @@ class HomeFragment : Fragment(), AddProductFragment.DialogNextBtnClickListener,
         })
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun addProducts() {
         binding.btnAdd.setOnClickListener{
            if(popUpDialog!= null)

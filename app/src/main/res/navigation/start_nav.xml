@@ -78,6 +78,9 @@
             app:destination="@id/signinFragment"
             app:popUpTo="@+id/fragmentA"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_profileFragment_to_informationFragment2"
+            app:destination="@id/informationFragment" />
     </fragment>
     <fragment
         android:id="@+id/shopHomeFragment"

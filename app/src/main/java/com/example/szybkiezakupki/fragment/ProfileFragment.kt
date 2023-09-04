@@ -1,6 +1,7 @@
 package com.example.szybkiezakupki.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,10 +10,13 @@ import com.example.szybkiezakupki.R
 import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.szybkiezakupki.databinding.FragmentProfileBinding
 import com.example.szybkiezakupki.databinding.FragmentSignupBinding
+import com.example.szybkiezakupki.fragment.AddProductFragment.Companion.TAG
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
 
 
 class ProfileFragment : Fragment() {
@@ -21,6 +25,8 @@ class ProfileFragment : Fragment() {
     private lateinit var mAuth: FirebaseAuth
     private lateinit var binding: FragmentProfileBinding
     private var currentUser: FirebaseUser? = null
+    private var userId= FirebaseAuth.getInstance().currentUser?.uid
+    private lateinit var database: DatabaseReference
 
 
     override fun onCreateView(
@@ -36,6 +42,44 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         init(view)
+        val clientname= binding.textView3.text.toString()
+        val clientsurname= binding.textView4.text.toString()
+
+         data class UserData(
+            val name: String? = "",
+            val surname: String? = ""
+
+        )
+         {
+             constructor(): this ("","")
+         }
+
+        if (userId != null) {
+            // Pobranie danych użytkownika z Firebase
+
+            database.child("users").child(userId!!)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+                            val userData1 = snapshot.getValue(UserData::class.java)
+                            if (userData1 != null) {
+                                // Przypisanie danych do pól name i surname
+                                binding.textView3.text = userData1.name
+                                binding.textView4.text = userData1.surname
+                            }
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        Log.e(TAG, "Błąd odczytu danych: ${error.message}")
+                    }
+
+
+                })
+        }
+
+
 
         //logout+ wyjscie do signin
         binding.LogoutButton.setOnClickListener {
@@ -58,6 +102,14 @@ class ProfileFragment : Fragment() {
                     Toast.makeText(requireContext(), "Blad, konto nie usuniete" ,Toast.LENGTH_SHORT).show()
                     }
         }
+        /////
+        //back button
+        binding.backbtn.setOnClickListener {
+            findNavController().popBackStack()  // Wróć do poprzedniego fragmentu
+        }
+        binding.dataChgBtn.setOnClickListener {
+            navController.navigate(R.id.action_profileFragment_to_informationFragment2)
+        }
     }
 
 
@@ -65,5 +117,7 @@ class ProfileFragment : Fragment() {
         navController = Navigation.findNavController(view)
         mAuth = FirebaseAuth.getInstance()
         currentUser = mAuth.currentUser
+        userId = FirebaseAuth.getInstance().currentUser?.uid
+        database = FirebaseDatabase.getInstance().reference
     }
 }
