@@ -17,6 +17,8 @@ import com.example.szybkiezakupki.fragment.AddProductFragment.Companion.TAG
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.example.szybkiezakupki.utils.UserData
+
 
 
 class ProfileFragment : Fragment() {
@@ -27,6 +29,7 @@ class ProfileFragment : Fragment() {
     private var currentUser: FirebaseUser? = null
     private var userId= FirebaseAuth.getInstance().currentUser?.uid
     private lateinit var database: DatabaseReference
+    private lateinit var userData1: UserData
 
 
     override fun onCreateView(
@@ -45,14 +48,14 @@ class ProfileFragment : Fragment() {
         val clientname= binding.textView3.text.toString()
         val clientsurname= binding.textView4.text.toString()
 
-         data class UserData(
-            val name: String? = "",
-            val surname: String? = ""
+     //   data class UserData(
+     //      val name: String? = "",
+     //      val surname: String? = ""
 
-        )
-         {
-             constructor(): this ("","")
-         }
+     //  )
+     //   {
+     //       constructor(): this ("","")
+     //   }
 
         if (userId != null) {
             // Pobranie danych użytkownika z Firebase
@@ -62,11 +65,11 @@ class ProfileFragment : Fragment() {
 
                     override fun onDataChange(snapshot: DataSnapshot) {
                         if (snapshot.exists()) {
-                            val userData1 = snapshot.getValue(UserData::class.java)
+                            userData1 = snapshot.getValue(UserData::class.java) ?: UserData("", "")
                             if (userData1 != null) {
                                 // Przypisanie danych do pól name i surname
                                 binding.textView3.text = userData1.name
-                                binding.textView4.text = userData1.surname
+                                binding.textView4.text = userData1.surname_address
                             }
                         }
                     }
@@ -95,7 +98,8 @@ class ProfileFragment : Fragment() {
                     if (task.isSuccessful) {
                         // Powodzenie usuwania
                         Toast.makeText(requireContext(), "Konto usuniete" ,Toast.LENGTH_SHORT).show()
-                        navController.navigate(R.id.action_profileFragment_to_signinFragment)                    } else {
+                        navController.navigate(R.id.action_profileFragment_to_signinFragment)                    }
+                    else {
 
                     }
                         // Błąd usuwania

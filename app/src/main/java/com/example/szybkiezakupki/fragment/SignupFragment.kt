@@ -11,7 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.szybkiezakupki.databinding.FragmentSignupBinding
 import com.google.firebase.auth.FirebaseAuth
-
+import com.example.szybkiezakupki.utils.UserData
 
 
 
@@ -20,7 +20,7 @@ class SignupFragment : Fragment() {
     private lateinit var navController: NavController
     private lateinit var mAuth: FirebaseAuth
     private lateinit var binding: FragmentSignupBinding
-    private lateinit var accType: Boolean
+    private var accType: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-
+import com.example.szybkiezakupki.utils.UserData
 
 class InformationFragment : Fragment() {
 
@@ -47,11 +47,11 @@ class InformationFragment : Fragment() {
             val surname = binding.ClientSurnameEt.text.toString()
             if (name.isNotEmpty() && surname.isNotEmpty()) {
 
-                val userData = mapOf(
-                    "name" to name,
-                    "surname" to surname
-                )
-
+              //  val userData = mapOf(
+              //      "name" to name,
+              //      "surname" to surname
+              //  )
+                val userData= UserData(name, surname, null)
                 // Zapisanie danych do Firebase Realtime Database
                 val userId = FirebaseAuth.getInstance().currentUser?.uid
                 if (userId != null) {
