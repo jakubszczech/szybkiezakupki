@@ -64,7 +64,13 @@ class SignupFragment : Fragment() {
     private fun registerUser(email: String, pass: String) {
         mAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
             if (it.isSuccessful)
-                navController.navigate(R.id.action_signupFragment_to_informationFragment)
+                if(accType==false) {
+                    navController.navigate(R.id.action_signupFragment_to_informationFragment)
+                }
+                else
+                {
+                    navController.navigate(R.id.action_signupFragment_to_shopInformationFragment)
+                }
             else
                 Toast.makeText(context, it.exception.toString(), Toast.LENGTH_SHORT).show()
 

@@ -81,6 +81,9 @@
         <action
             android:id="@+id/action_profileFragment_to_informationFragment2"
             app:destination="@id/informationFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_shopInformationFragment"
+            app:destination="@id/shopInformationFragment" />
     </fragment>
     <fragment
         android:id="@+id/shopHomeFragment"
@@ -93,6 +96,9 @@
         <action
             android:id="@+id/action_shopHomeFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_shopHomeFragment_to_shopProductsFragment"
+            app:destination="@id/shopProductsFragment" />
     </fragment>
     <fragment
         android:id="@+id/shopListFragment"
@@ -128,6 +134,15 @@
         tools:layout="@layout/shop_fragment_information" >
         <action
             android:id="@+id/action_shopInformationFragment_to_shopHomeFragment"
+            app:destination="@id/shopHomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shopProductsFragment"
+        android:name="com.example.szybkiezakupki.fragment.ShopProductsFragment"
+        android:label="fragment_shop_products"
+        tools:layout="@layout/fragment_shop_products" >
+        <action
+            android:id="@+id/action_shopProductsFragment_to_shopHomeFragment"
             app:destination="@id/shopHomeFragment" />
     </fragment>
 </navigation>

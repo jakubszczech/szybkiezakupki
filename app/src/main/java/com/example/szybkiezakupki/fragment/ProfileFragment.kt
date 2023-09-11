@@ -65,7 +65,7 @@ class ProfileFragment : Fragment() {
 
                     override fun onDataChange(snapshot: DataSnapshot) {
                         if (snapshot.exists()) {
-                            userData1 = snapshot.getValue(UserData::class.java) ?: UserData("", "")
+                            userData1 = snapshot.getValue(UserData::class.java) ?: UserData("", "", null)
                             if (userData1 != null) {
                                 // Przypisanie danych do pól name i surname
                                 binding.textView3.text = userData1.name
@@ -92,7 +92,6 @@ class ProfileFragment : Fragment() {
         //
         //delete acc+ wyjscie do signin
         binding.deleteaccbtn.setOnClickListener {
-
             currentUser?.delete()
                 ?.addOnCompleteListener { task ->
                     if (task.isSuccessful) {
@@ -112,7 +111,10 @@ class ProfileFragment : Fragment() {
             findNavController().popBackStack()  // Wróć do poprzedniego fragmentu
         }
         binding.dataChgBtn.setOnClickListener {
+            if(userData1.acctype==false)
             navController.navigate(R.id.action_profileFragment_to_informationFragment2)
+            else
+                navController.navigate(R.id.action_profileFragment_to_shopInformationFragment)
         }
     }
 
@@ -124,4 +126,5 @@ class ProfileFragment : Fragment() {
         userId = FirebaseAuth.getInstance().currentUser?.uid
         database = FirebaseDatabase.getInstance().reference
     }
+
 }

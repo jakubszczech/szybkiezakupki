@@ -1,6 +1,7 @@
 package com.example.szybkiezakupki.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,10 @@ import androidx.navigation.Navigation
 import com.example.szybkiezakupki.R
 import com.example.szybkiezakupki.databinding.FragmentSigninBinding
 import com.example.szybkiezakupki.databinding.FragmentSignupBinding
+import com.example.szybkiezakupki.utils.UserData
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
 
 
 class SigninFragment : Fragment() {
@@ -20,6 +24,11 @@ class SigninFragment : Fragment() {
     private lateinit var navController: NavController
     private lateinit var mAuth: FirebaseAuth
     private lateinit var binding: FragmentSigninBinding
+    private var currentUser: FirebaseUser? = null
+    private var userId= FirebaseAuth.getInstance().currentUser?.uid
+    private lateinit var database: DatabaseReference
+    private lateinit var userData1: UserData
+
     private var backPressedOnce = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +60,7 @@ class SigninFragment : Fragment() {
             }
         }
 
-        requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressedCallback)
 
 
 
@@ -76,8 +85,36 @@ class SigninFragment : Fragment() {
 
     private fun loginUser(email: String, pass: String) {
         mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
-            if (it.isSuccessful)
-                navController.navigate(R.id.action_signinFragment_to_homeFragment)
+            if (it.isSuccessful) {
+                val isLogin: Boolean = mAuth.currentUser != null
+                if (isLogin) {
+
+                    userId = FirebaseAuth.getInstance().currentUser?.uid
+
+                    database.child("users").child(userId!!)
+                    .addListenerForSingleValueEvent(object : ValueEventListener {
+
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            if (snapshot.exists()) {
+                                userData1 =
+                                    snapshot.getValue(UserData::class.java) ?: UserData("", "", false)
+                                if (userData1.acctype == true) {
+                                    navController.navigate(R.id.action_signinFragment_to_shopHomeFragment)
+                                } else {
+                                    navController.navigate(R.id.action_signinFragment_to_homeFragment)
+                                }
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            Log.e(AddProductFragment.TAG, "Błąd odczytu danych: ${error.message}")
+                        }
+
+
+                    })
+
+            }
+            }
             else
                 Toast.makeText(context, it.exception.toString(), Toast.LENGTH_SHORT).show()
 
@@ -87,6 +124,9 @@ class SigninFragment : Fragment() {
     private fun init(view: View) {
         navController = Navigation.findNavController(view)
         mAuth = FirebaseAuth.getInstance()
+        currentUser = mAuth.currentUser
+        userId = FirebaseAuth.getInstance().currentUser?.uid
+        database = FirebaseDatabase.getInstance().reference
     }
 
 }

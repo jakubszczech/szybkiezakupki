@@ -10,7 +10,7 @@
     <!-- TODO: Update blank fragment layout -->
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/profileBtn"
         android:layout_width="49dp"
         android:layout_height="48dp"
         android:layout_marginTop="24dp"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/yourProdBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="116dp"
@@ -30,21 +30,21 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/OtherProdBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="88dp"
         android:layout_marginTop="60dp"
         android:text="Oferta innych sklepów"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/yourProdBtn" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:layout_width="411dp"
         android:layout_height="62dp"
         android:layout_marginBottom="112dp"
         android:hint="Wyszukaj produkt"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/yourProdBtn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />

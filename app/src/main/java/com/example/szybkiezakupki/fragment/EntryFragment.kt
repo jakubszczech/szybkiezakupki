@@ -3,6 +3,7 @@ package com.example.szybkiezakupki.fragment
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,13 +11,20 @@ import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.szybkiezakupki.R
+import com.example.szybkiezakupki.utils.UserData
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
 import kotlinx.coroutines.delay
 
 
 class EntryFragment : Fragment() {
     private lateinit var mAuth: FirebaseAuth
     private lateinit var navController: NavController
+    private var currentUser: FirebaseUser? = null
+    private var userId= FirebaseAuth.getInstance().currentUser?.uid
+    private lateinit var database: DatabaseReference
+    private lateinit var userData1: UserData
 
 
     override fun onCreateView(
@@ -37,9 +45,34 @@ class EntryFragment : Fragment() {
         val handler = Handler(Looper.myLooper()!!)
         handler.postDelayed({
 
-            if (isLogin)
-               navController.navigate(R.id.action_entryFragment_to_homeFragment)
-            else
+            if (isLogin) {
+
+                database.child("users").child(userId!!)
+                    .addListenerForSingleValueEvent(object : ValueEventListener {
+
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            if (snapshot.exists()) {
+                                userData1 = snapshot.getValue(UserData::class.java) ?: UserData("", "")
+                              if(userData1.acctype==true)
+                              {
+                                  navController.navigate(R.id.action_entryFragment_to_shopHomeFragment)
+                              }
+                                else
+                              {
+                                  navController.navigate(R.id.action_entryFragment_to_homeFragment)
+                              }
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            Log.e(AddProductFragment.TAG, "Błąd odczytu danych: ${error.message}")
+                        }
+
+
+                    })
+
+
+            }else
                 navController.navigate(R.id.action_entryFragment_to_signinFragment)
 
         }, 2000)
@@ -48,5 +81,8 @@ class EntryFragment : Fragment() {
     private fun init(view: View) {
         mAuth = FirebaseAuth.getInstance()
         navController = Navigation.findNavController(view)
+        currentUser = mAuth.currentUser
+        userId = FirebaseAuth.getInstance().currentUser?.uid
+        database = FirebaseDatabase.getInstance().reference
     }
 }

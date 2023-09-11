@@ -51,7 +51,7 @@ class InformationFragment : Fragment() {
               //      "name" to name,
               //      "surname" to surname
               //  )
-                val userData= UserData(name, surname, null)
+                val userData= UserData(name, surname, false)
                 // Zapisanie danych do Firebase Realtime Database
                 val userId = FirebaseAuth.getInstance().currentUser?.uid
                 if (userId != null) {
