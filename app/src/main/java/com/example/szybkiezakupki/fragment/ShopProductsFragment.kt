@@ -10,8 +10,6 @@ import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.szybkiezakupki.R
-import com.example.szybkiezakupki.databinding.FragmentHomeBinding
 import com.example.szybkiezakupki.databinding.FragmentShopProductsBinding
 import com.example.szybkiezakupki.utils.ProductAdapter
 import com.example.szybkiezakupki.utils.ProductData
@@ -63,12 +61,16 @@ class ShopProductsFragment: Fragment(), AddProductFragment.DialogNextBtnClickLis
         //       }
         //       adapter.notifyDataSetChanged()
         //   }
+
+
                 for (taskSnapshot in snapshot.children) {
                     // Pobierz wszystkie zmienne produktu z Firebase
                     val taskId = taskSnapshot.key
-                    val task = taskSnapshot.child("task").getValue(String::class.java)
-                    val price = taskSnapshot.child("price").getValue(Float::class.java)
-                    val shelfNum = taskSnapshot.child("shelfNum").getValue(Int::class.java)
+                    val task = taskSnapshot.child("name").getValue(String::class.java)
+                    val priceString = taskSnapshot.child("price").getValue(String::class.java)
+                    val price = priceString?.toFloat() ?: 0.0f
+                    val shelfNumString = taskSnapshot.child("shelfNum").getValue(String::class.java)
+                    val shelfNum=shelfNumString?.toInt()?: 0
                     val isPurchased = taskSnapshot.child("isPurchased").getValue(Boolean::class.java)
 
                     // Tworzenie obiektu ProductData na podstawie pobranych zmiennych
@@ -114,23 +116,40 @@ class ShopProductsFragment: Fragment(), AddProductFragment.DialogNextBtnClickLis
         binding.rvList.adapter= adapter
     }
 
-    override fun onSaveProd(prod: String, etProductName: TextInputEditText) {
-        databaseRef.push().setValue(prod).addOnCompleteListener{
-            if(it.isSuccessful)
-            {
+    override fun onSaveProd(prod: String, price: String, shelf: String, etProductName: TextInputEditText, EtPriceS: TextInputEditText, EtShelfNumber: TextInputEditText) {
+      // databaseRef.push().setValue(prod).addOnCompleteListener{
+      //     if(it.isSuccessful)
+      //     {
+      //         Toast.makeText(context, "Produkt dodany pomyslnie", Toast.LENGTH_SHORT).show()
+      //         etProductName.text= null
+      //     }
+      //     else
+      //     {
+      //         Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT).show()
+      //     }
+      //     etProductName.text= null
+      //     popUpDialog!!.dismiss()
+      // }
+        val productData = mapOf(
+            "name" to prod,
+            "price" to price,
+            "shelfNum" to shelf
+        )
+
+        databaseRef.push().setValue(productData).addOnCompleteListener {
+            if (it.isSuccessful) {
                 Toast.makeText(context, "Produkt dodany pomyslnie", Toast.LENGTH_SHORT).show()
-                etProductName.text= null
-            }
-            else
-            {
+                etProductName.text = null
+                EtPriceS.text = null
+                EtShelfNumber.text = null
+            } else {
                 Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT).show()
             }
-            etProductName.text= null
             popUpDialog!!.dismiss()
         }
     }
 
-    override fun onUpdateProd(ProductData: ProductData, etProductName: TextInputEditText) {
+    override fun onUpdateProd(ProductData: ProductData, price: String, shelf: String, etProductName: TextInputEditText, EtPriceS: TextInputEditText, EtShelfNumber: TextInputEditText) {
         val map= HashMap<String, Any>()
         map[ProductData.taskId]= ProductData.task
         databaseRef.updateChildren(map).addOnCompleteListener {

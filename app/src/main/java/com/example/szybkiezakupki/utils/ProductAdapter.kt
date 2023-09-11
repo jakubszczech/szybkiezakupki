@@ -29,6 +29,8 @@ class ProductAdapter(private val list:MutableList<ProductData> ) :
         with(holder){
             with(list[position]){
                 binding.todoTask.text= this.task
+                binding.EtPrice.text= this.price.toString()
+                binding.EtShelf.text=this.shelfNum.toString()
 
 
                 binding.deleteTask.setOnClickListener{

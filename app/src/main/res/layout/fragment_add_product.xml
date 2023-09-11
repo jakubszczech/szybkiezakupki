@@ -7,63 +7,79 @@
     tools:context=".fragment.AddProductFragment">
 
 
-    <ImageView
-        android:id="@+id/btn_close"
-        android:layout_width="33dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="32dp"
-        android:src="@drawable/close_prod"
-        app:layout_constraintEnd_toEndOf="@+id/cardView1"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardView1"
-        android:layout_width="416dp"
-        android:layout_height="169dp"
-        android:layout_marginHorizontal="16dp"
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/etProductName"
+        android:layout_width="402dp"
+        android:layout_height="50dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="68dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="8dp"
-        app:cardUseCompatPadding="true"
+        android:layout_marginTop="48dp"
+        android:background="@color/white"
+        android:hint="@string/dodaj_produkt"
+        android:inputType="textEmailAddress"
+        android:paddingStart="8dp"
+        android:paddingTop="5dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/btn_close" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="392dp"
-            android:layout_height="64dp"
-            android:background="@color/white"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            app:hintEnabled="false">
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/EtShelfNumber"
+        android:layout_width="410dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="196dp"
+        android:background="@color/white"
+        android:hint="Wpisz numer polki"
+        android:inputType="textEmailAddress"
+        android:paddingStart="8dp"
+        android:paddingTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_close" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etProductName"
-                android:layout_width="380dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/white"
-                android:hint="@string/dodaj_produkt"
-                android:inputType="textEmailAddress"
-                android:paddingStart="8dp"
-                android:paddingTop="5dp" />
-        </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/EtCategoty"
+        android:layout_width="410dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="276dp"
+        android:background="@color/white"
+        android:hint="Wpisz kategorie produktu"
+        android:inputType="textEmailAddress"
+        android:paddingStart="8dp"
+        android:paddingTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_close" />
 
-    </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/EtPriceS"
+        android:layout_width="410dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="120dp"
+        android:background="@color/white"
+        android:hint="Wpisz cene produktu"
+        android:inputType="textEmailAddress"
+        android:paddingStart="8dp"
+        android:paddingTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_close" />
 
     <ImageView
         android:id="@+id/btnAdd1"
         android:layout_width="34dp"
         android:layout_height="36dp"
+
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="24dp"
         android:src="@drawable/add_1_prod"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/cardView1"
-        app:layout_constraintTop_toBottomOf="@+id/cardView1"
-        app:layout_constraintVertical_bias="0.003" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EtCategoty" />
+
+    <ImageView
+        android:id="@+id/btn_close"
+        android:layout_width="33dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="352dp"
+        android:layout_marginTop="36dp"
+        android:src="@drawable/close_prod"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
