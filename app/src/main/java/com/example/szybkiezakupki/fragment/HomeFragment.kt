@@ -50,6 +50,10 @@ class HomeFragment : Fragment(), AddProductFragment.DialogNextBtnClickListener,
         binding.ProfileBtn.setOnClickListener{
             navController.navigate(R.id.action_homeFragment_to_profileFragment)
         }
+        binding.MyListsBtn.setOnClickListener {
+            navController.navigate(R.id.action_homeFragment_to_listFragment)
+        }
+
     }
 
     private fun getDataFromFirebase() {
@@ -74,8 +78,8 @@ class HomeFragment : Fragment(), AddProductFragment.DialogNextBtnClickListener,
                     val shelfNumString = taskSnapshot.child("shelfNum").getValue(String::class.java)
                     val shelfNum=shelfNumString?.toInt()?: 0
                     val isPurchased = taskSnapshot.child("isPurchased").getValue(Boolean::class.java) ?: false
-
-                    val product = ProductData(taskId ?: "", task ?: "", price ?: 0.0f, shelfNum ?: 0, isPurchased ?: false)
+                    val category = taskSnapshot.child("category").getValue(String::class.java)
+                    val product = ProductData(taskId ?: "", task ?: "", price ?: 0.0f, shelfNum ?: 0, isPurchased ?: false, category :? "")
 
 
                     mList.add(product)
@@ -149,7 +153,7 @@ class HomeFragment : Fragment(), AddProductFragment.DialogNextBtnClickListener,
    //         popUpDialog!!.dismiss()
    //     }
    // }
-   override fun onSaveProd(prod: String, price: String, shelf: String, etProductName: TextInputEditText, EtPriceS: TextInputEditText, EtShelfNumber: TextInputEditText) {
+   override fun onSaveProd(prod: String, price: String, shelf: String, category: String, etProductName: TextInputEditText, EtPriceS: TextInputEditText, EtShelfNumber: TextInputEditText, EtCategory: TextInputEditText) {
        // databaseRef.push().setValue(prod).addOnCompleteListener{
        //     if(it.isSuccessful)
        //     {
@@ -166,7 +170,8 @@ class HomeFragment : Fragment(), AddProductFragment.DialogNextBtnClickListener,
        val productData = mapOf(
            "name" to prod,
            "price" to price,
-           "shelfNum" to shelf
+           "shelfNum" to shelf,
+           "category" to category
        )
 
        databaseRef.push().setValue(productData).addOnCompleteListener {
@@ -175,6 +180,8 @@ class HomeFragment : Fragment(), AddProductFragment.DialogNextBtnClickListener,
                etProductName.text = null
                EtPriceS.text = null
                EtShelfNumber.text = null
+               EtCategory.text= null
+
            } else {
                Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT).show()
            }
@@ -182,7 +189,7 @@ class HomeFragment : Fragment(), AddProductFragment.DialogNextBtnClickListener,
        }
    }
 
-    override fun onUpdateProd(ProductData: ProductData, price: String, shelf: String, etProductName: TextInputEditText, EtPriceS: TextInputEditText, EtShelfNumber: TextInputEditText) {
+    override fun onUpdateProd(ProductData: ProductData, price: String, shelf: String, category: String, etProductName: TextInputEditText, EtPriceS: TextInputEditText, EtShelfNumber: TextInputEditText, EtCategory: TextInputEditText) {
         val map= HashMap<String, Any>()
         map[ProductData.taskId]= ProductData.task
         databaseRef.updateChildren(map).addOnCompleteListener {
@@ -214,8 +221,8 @@ class HomeFragment : Fragment(), AddProductFragment.DialogNextBtnClickListener,
         if(popUpDialog!=null)
             childFragmentManager.beginTransaction().remove(popUpDialog!!).commit()
 
-
-            popUpDialog= AddProductFragment.newInstance(ProductData.taskId, ProductData.task)
+            //TUTAJ WYSYLA DANE DO EDITU, KONTYNUACJA W NEW INSTANCE W ADD PRODUCT FRAGMENT
+            popUpDialog= AddProductFragment.newInstance(ProductData.taskId, ProductData.task, ProductData.price, ProductData.shelfNum, ProductData.category)
             popUpDialog!!.setListener(this)
             popUpDialog!!.show(childFragmentManager, AddProductFragment.TAG)
 

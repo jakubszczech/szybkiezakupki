@@ -26,10 +26,13 @@ class AddProductFragment : DialogFragment() {
         const val TAG = "AddProductFragment"
 
         @JvmStatic
-        fun newInstance(taskId: String, task: String) = AddProductFragment().apply {
+        fun newInstance(taskId: String, task: String, price: Float?, shelf:Int?, category: String?) = AddProductFragment().apply {
             arguments = Bundle().apply {
                 putString("taskId", taskId)
                 putString("task", task)
+                putString("price", price.toString())
+                putString("shelf", shelf.toString())
+                putString("category", category)
             }
         }
 
@@ -57,13 +60,15 @@ class AddProductFragment : DialogFragment() {
             val price = arguments?.getFloat("price", 0.0f)
             val shelfNum = arguments?.getInt("shelfNum", 0)
             val isPurchased = arguments?.getBoolean("isPurchased", false)
+            val category= arguments?.getString("category").toString()
 
-            ProductData = ProductData(taskId, task, price, shelfNum, isPurchased)
+            ProductData = ProductData(taskId, task, price, shelfNum, isPurchased, category)
 
             // Teraz możesz użyć wszystkich zmiennych ProductData
             binding.etProductName.setText(ProductData?.task.toString())
             binding.EtPriceS.setText(ProductData?.price.toString())
             binding.EtShelfNumber.setText(ProductData?.shelfNum.toString())
+            binding.EtCategoty.setText(ProductData?.category.toString())
 
             // binding.etProductName.setText(ProductData?.task)
 
@@ -77,19 +82,20 @@ class AddProductFragment : DialogFragment() {
             val product = binding.etProductName.text.toString()
             val price = binding.EtPriceS.text.toString()
             val shelf = binding.EtShelfNumber.text.toString()
+            val category= binding.EtCategoty.text.toString()
 
 
-            if (product.isNotEmpty()&& price.isNotEmpty() && shelf.isNotEmpty()) {
+            if (product.isNotEmpty()&& price.isNotEmpty() && shelf.isNotEmpty()&& category.isNotEmpty()) {
                 if(ProductData==null) {
-                    listener.onSaveProd(product, price, shelf, binding.etProductName, binding.EtPriceS, binding.EtShelfNumber)
+                    listener.onSaveProd(product, price, shelf, category, binding.etProductName, binding.EtPriceS, binding.EtShelfNumber, binding.EtCategoty)
                 }else{
                     ProductData?.task = product
-                    listener.onUpdateProd(ProductData!!,price, shelf, binding.etProductName, binding.EtPriceS, binding.EtShelfNumber)
+                    listener.onUpdateProd(ProductData!!,price, shelf, category, binding.etProductName, binding.EtPriceS, binding.EtShelfNumber, binding.EtCategoty)
                 }
 
 
             } else {
-                Toast.makeText(context, "Wpisz nazwe produktu", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Podaj wszystkie informacje o produkcie", Toast.LENGTH_SHORT).show()
             }
         }
         binding.btnClose.setOnClickListener {
@@ -98,8 +104,8 @@ class AddProductFragment : DialogFragment() {
     }
 
     interface DialogNextBtnClickListener {
-        fun onSaveProd(prod: String, price: String, shelf: String, etProductName: TextInputEditText, EtPriceS: TextInputEditText, EtShelfNumber: TextInputEditText)
-        fun onUpdateProd(ProductData: ProductData, price: String, shelf: String, etProductName: TextInputEditText, EtPriceS: TextInputEditText, EtShelfNumber: TextInputEditText)
+        fun onSaveProd(prod: String, price: String, shelf: String, category: String, etProductName: TextInputEditText, EtPriceS: TextInputEditText, EtShelfNumber: TextInputEditText, EtCategory: TextInputEditText)
+        fun onUpdateProd(ProductData: ProductData, price: String, shelf: String, category: String, etProductName: TextInputEditText, EtPriceS: TextInputEditText, EtShelfNumber: TextInputEditText, EtCategory: TextInputEditText)
 
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -17,38 +18,51 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:paddingStart="16dp"
+            android:layout_marginStart="16dp"
+
+            android:paddingStart="10dp"
             android:text="Item 1"
 
             android:textSize="17sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/EtCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="16dp"
+
+            android:layout_marginTop="44dp"
+            android:paddingStart="10dp"
+
+            android:text="Item 1"
+            android:textSize="17sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/EtPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_marginStart="96dp"
+            android:layout_width="80dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="36dp"
             android:paddingStart="16dp"
-
             android:text="Item 1"
             android:textSize="17sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.512" />
+            app:layout_constraintStart_toEndOf="@+id/todoTask"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/editTask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
+            android:layout_marginEnd="16dp"
             android:src="@drawable/edit_product"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/deleteTask"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.476" />
 
         <ImageView
             android:id="@+id/deleteTask"
@@ -59,22 +73,20 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.6" />
+            app:layout_constraintVertical_bias="0.476" />
 
         <TextView
             android:id="@+id/EtShelf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="72dp"
+            android:layout_height="21dp"
 
-            android:layout_marginStart="204dp"
-
+            android:layout_marginStart="220dp"
             android:paddingStart="16dp"
             android:text="Item 1"
+
             android:textSize="17sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.414" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

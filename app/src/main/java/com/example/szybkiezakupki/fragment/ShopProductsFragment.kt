@@ -72,9 +72,11 @@ class ShopProductsFragment: Fragment(), AddProductFragment.DialogNextBtnClickLis
                     val shelfNumString = taskSnapshot.child("shelfNum").getValue(String::class.java)
                     val shelfNum=shelfNumString?.toInt()?: 0
                     val isPurchased = taskSnapshot.child("isPurchased").getValue(Boolean::class.java)
+                    val category = taskSnapshot.child("category").getValue(String::class.java)
+
 
                     // Tworzenie obiektu ProductData na podstawie pobranych zmiennych
-                    val product = ProductData(taskId ?: "", task ?: "", price ?: 0.0f, shelfNum ?: 0, isPurchased ?: false)
+                    val product = ProductData(taskId ?: "", task ?: "", price ?: 0.0f, shelfNum ?: 0, isPurchased ?: false, category ?:"")
 
                     mList.add(product)
                 }
@@ -116,7 +118,7 @@ class ShopProductsFragment: Fragment(), AddProductFragment.DialogNextBtnClickLis
         binding.rvList.adapter= adapter
     }
 
-    override fun onSaveProd(prod: String, price: String, shelf: String, etProductName: TextInputEditText, EtPriceS: TextInputEditText, EtShelfNumber: TextInputEditText) {
+    override fun onSaveProd(prod: String, price: String, shelf: String, category: String, etProductName: TextInputEditText, EtPriceS: TextInputEditText, EtShelfNumber: TextInputEditText, EtCategory: TextInputEditText) {
       // databaseRef.push().setValue(prod).addOnCompleteListener{
       //     if(it.isSuccessful)
       //     {
@@ -133,7 +135,8 @@ class ShopProductsFragment: Fragment(), AddProductFragment.DialogNextBtnClickLis
         val productData = mapOf(
             "name" to prod,
             "price" to price,
-            "shelfNum" to shelf
+            "shelfNum" to shelf,
+            "category" to category
         )
 
         databaseRef.push().setValue(productData).addOnCompleteListener {
@@ -142,6 +145,7 @@ class ShopProductsFragment: Fragment(), AddProductFragment.DialogNextBtnClickLis
                 etProductName.text = null
                 EtPriceS.text = null
                 EtShelfNumber.text = null
+                EtCategory.text=null
             } else {
                 Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT).show()
             }
@@ -149,9 +153,10 @@ class ShopProductsFragment: Fragment(), AddProductFragment.DialogNextBtnClickLis
         }
     }
 
-    override fun onUpdateProd(ProductData: ProductData, price: String, shelf: String, etProductName: TextInputEditText, EtPriceS: TextInputEditText, EtShelfNumber: TextInputEditText) {
+    override fun onUpdateProd(ProductData: ProductData, price: String, shelf: String, category: String, etProductName: TextInputEditText, EtPriceS: TextInputEditText, EtShelfNumber: TextInputEditText, EtCategory: TextInputEditText) {
         val map= HashMap<String, Any>()
         map[ProductData.taskId]= ProductData.task
+
         databaseRef.updateChildren(map).addOnCompleteListener {
             if (it.isSuccessful) {
                 Toast.makeText(context, "Zmodyfikowano", Toast.LENGTH_SHORT).show()
@@ -182,7 +187,7 @@ class ShopProductsFragment: Fragment(), AddProductFragment.DialogNextBtnClickLis
             childFragmentManager.beginTransaction().remove(popUpDialog!!).commit()
 
 
-        popUpDialog= AddProductFragment.newInstance(ProductData.taskId, ProductData.task)
+        popUpDialog= AddProductFragment.newInstance(ProductData.taskId, ProductData.task, ProductData.price, ProductData.shelfNum, ProductData.category)
         popUpDialog!!.setListener(this)
         popUpDialog!!.show(childFragmentManager, AddProductFragment.TAG)
 
