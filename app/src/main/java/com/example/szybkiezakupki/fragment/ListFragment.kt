@@ -1,60 +1,218 @@
 package com.example.szybkiezakupki.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.szybkiezakupki.R
+import android.widget.Toast
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.szybkiezakupki.databinding.FragmentListBinding
+import com.example.szybkiezakupki.utils.ListAdapter
+import com.example.szybkiezakupki.utils.ListData
+import com.example.szybkiezakupki.utils.ProductData
+import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class ListFragment : Fragment(), AddListFragment.DialogNextBtnClickListener,
+    ListAdapter.ListAdapterClicksInterface {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ListFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class ListFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var auth: FirebaseAuth
+    private  lateinit var databaseRef : DatabaseReference
+    private lateinit var navController: NavController
+    private  lateinit var binding: FragmentListBinding
+    private var popUpDialog: AddListFragment?= null
+    private lateinit var adapter: ListAdapter
+    private lateinit var mList:MutableList<ListData>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list, container, false)
+        binding= FragmentListBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        init(view)
+        getDataFromFirebase()
+        addList()
+
+        binding.backbtn.setOnClickListener{
+           findNavController().popBackStack()
+        }
+
+    }
+    private fun getDataFromFirebase() {
+        databaseRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                mList.clear()
+                // for ( taskSnapshot in snapshot.children){
+                //     val product= taskSnapshot.key?.let {
+                //         ProductData(it, taskSnapshot.value.toString())
+                //     }
+                //     if (product !=null){
+                //         mList.add(product)
+                //     }
+                // }
+
+
+                 for (taskSnapshot in snapshot.children) {
+                     val listId = taskSnapshot.key ?: ""
+                     val listName = taskSnapshot.child("name").getValue(String::class.java)
+
+                     val list = ListData(listId ?: "", listName ?: "", false)
+
+
+                     mList.add(list)
+                 }
+                adapter.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
+            }
+
+        })
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ListFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ListFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    @SuppressLint("SuspiciousIndentation")
+    private fun addList() {
+        binding.btnAddList.setOnClickListener{
+            if(popUpDialog!= null)
+                childFragmentManager.beginTransaction().remove(popUpDialog!!).commit()
+            popUpDialog= AddListFragment()
+            popUpDialog!!.setListener(this)
+            popUpDialog!!.show(childFragmentManager, AddProductFragment.TAG)
+        }
     }
+
+    private fun init(view: View) {
+
+
+        navController = Navigation.findNavController(view)
+        auth= FirebaseAuth.getInstance()
+        databaseRef = FirebaseDatabase.getInstance().reference
+            .child("List").child(auth.currentUser?.uid.toString()) //test dostepnosci wszystkich produktow
+
+
+        binding.rvListOfLists.setHasFixedSize(true)
+        binding.rvListOfLists.layoutManager = LinearLayoutManager(context)
+        mList= mutableListOf()
+        adapter= ListAdapter(mList)
+        adapter.setListener((this))
+        binding.rvListOfLists.adapter= adapter
+    }
+
+    // override fun onSaveProd(prod: String, etProductName: TextInputEditText) {
+    //     databaseRef.push().setValue(prod).addOnCompleteListener{
+    //         if(it.isSuccessful)
+    //         {
+    //             Toast.makeText(context, "Produkt dodany pomyslnie", Toast.LENGTH_SHORT).show()
+    //             etProductName.text= null
+    //         }
+    //         else
+    //         {
+    //             Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT).show()
+    //         }
+    //         etProductName.text= null
+    //         popUpDialog!!.dismiss()
+    //     }
+    // }
+//
+    // override fun onUpdateProd(ProductData: ProductData, etProductName: TextInputEditText) {
+    //     val map= HashMap<String, Any>()
+    //     map[ProductData.taskId]= ProductData.task
+    //     databaseRef.updateChildren(map).addOnCompleteListener {
+    //         if (it.isSuccessful) {
+    //             Toast.makeText(context, "Zmodyfikowano", Toast.LENGTH_SHORT).show()
+//
+    //         } else {
+    //             Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT).show()
+    //         }
+    //         etProductName.text= null
+    //         popUpDialog!!.dismiss()
+    //     }
+    // }
+    override fun onSaveProd(list: String, etListName: TextInputEditText) {
+        // databaseRef.push().setValue(prod).addOnCompleteListener{
+        //     if(it.isSuccessful)
+        //     {
+        //         Toast.makeText(context, "Produkt dodany pomyslnie", Toast.LENGTH_SHORT).show()
+        //         etProductName.text= null
+        //     }
+        //     else
+        //     {
+        //         Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT).show()
+        //     }
+        //     etProductName.text= null
+        //     popUpDialog!!.dismiss()
+        // }
+        val ListData = mapOf(
+            "name" to list
+
+
+        )
+
+        databaseRef.push().setValue(ListData).addOnCompleteListener {
+            if (it.isSuccessful) {
+                Toast.makeText(context, "Lista dodana pomyslnie", Toast.LENGTH_SHORT).show()
+                etListName.text = null
+
+
+            } else {
+                Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT).show()
+            }
+            popUpDialog!!.dismiss()
+        }
+    }
+
+
+    override fun onUpdateProd(ListData: ListData, etListName: TextInputEditText) {
+        val map= HashMap<String, Any>()
+        map[ListData.listId]= ListData.listName
+        databaseRef.updateChildren(map).addOnCompleteListener {
+            if (it.isSuccessful) {
+                Toast.makeText(context, "Zmodyfikowano", Toast.LENGTH_SHORT).show()
+
+            } else {
+                Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT).show()
+            }
+            etListName.text= null
+            popUpDialog!!.dismiss()
+        }
+    }
+
+    override fun onDeleteListBtnClicked(ListData: ListData) {
+        databaseRef.child(ListData.listId).removeValue().addOnCompleteListener {
+            if (it.isSuccessful)
+            {
+                Toast.makeText(context, "Usunięto listę", Toast.LENGTH_SHORT).show()
+            }
+            else
+            {
+                Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    override fun onEditListBtnClicked(ListData: ListData) {
+        if(popUpDialog!=null)
+            childFragmentManager.beginTransaction().remove(popUpDialog!!).commit()
+
+        //TUTAJ WYSYLA DANE DO EDITU, KONTYNUACJA W NEW INSTANCE W ADD PRODUCT FRAGMENT
+        popUpDialog= AddListFragment.newInstance(ListData.listId, ListData.listName, false)
+        popUpDialog!!.setListener(this)
+        popUpDialog!!.show(childFragmentManager, AddProductFragment.TAG)
+
+    }
+
+
 }

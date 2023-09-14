@@ -1,60 +1,99 @@
 package com.example.szybkiezakupki.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.szybkiezakupki.R
+import android.widget.Toast
+import androidx.fragment.app.DialogFragment
+import com.example.szybkiezakupki.databinding.FragmentAddListBinding
+import com.example.szybkiezakupki.utils.ListData
+import com.google.android.material.textfield.TextInputEditText
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [AddListFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class AddListFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class AddListFragment : DialogFragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+
+    private lateinit var binding: FragmentAddListBinding
+    private lateinit var listener: DialogNextBtnClickListener
+    private var ListData: ListData? = null
+
+    fun setListener(listener: AddListFragment.DialogNextBtnClickListener) {
+        this.listener = listener
+    }
+
+    companion object {
+        const val TAG = "AddListFragment"
+
+        @JvmStatic
+        fun newInstance( listId:String, listName: String, isPurchased: Boolean) = AddListFragment().apply {
+            arguments = Bundle().apply {
+                putString("listId", listId)
+                putString("listName", listName)
+
+            }
         }
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_list, container, false)
+        binding = FragmentAddListBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AddListFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AddListFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (arguments != null) {
+
+            // binding.etProductName.setText(ProductData?.task)
+            val listId = arguments?.getString("listId").toString()
+            val listName = arguments?.getString("listName").toString()
+
+
+            ListData= ListData(listId, listName, false)
+
+            // Teraz możesz użyć wszystkich zmiennych ProductData
+            binding.etListName.setText(ListData?.listName)
+
+
+
+            // binding.etProductName.setText(ProductData?.task)
+
+            // Dodaj pozostałe zmienne ProductData w odpowiednich miejscach
+        }
+        registerEvents()
+    }
+
+    private fun registerEvents() {
+        binding.btnAdd1.setOnClickListener {
+            val list = binding.etListName.text.toString()
+
+
+            if (list.isNotEmpty()) {
+                if(ListData==null) {
+                    listener.onSaveProd(list, binding.etListName)
+                }else{
+                    ListData?.listName = list
+                    listener.onUpdateProd(ListData!!, binding.etListName)
                 }
+
+
+            } else {
+                Toast.makeText(context, "Podaj nazwę listy!", Toast.LENGTH_SHORT).show()
             }
+        }
+        binding.btnClose.setOnClickListener {
+            dismiss()
+        }
+    }
+
+    interface DialogNextBtnClickListener {
+        fun onSaveProd(list: String, etListName: TextInputEditText)
+        fun onUpdateProd(ListData: ListData, etListName: TextInputEditText)
+
     }
 }

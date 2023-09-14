@@ -217,6 +217,7 @@ class HomeFragment : Fragment(), AddProductFragment.DialogNextBtnClickListener,
         }
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onEditTaskBtnClicked(ProductData: ProductData) {
         if(popUpDialog!=null)
             childFragmentManager.beginTransaction().remove(popUpDialog!!).commit()
