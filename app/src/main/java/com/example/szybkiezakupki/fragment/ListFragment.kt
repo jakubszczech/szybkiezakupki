@@ -227,7 +227,7 @@ class ListFragment : Fragment(), AddListFragment.DialogNextBtnClickListener,
 
         popUpDialog2= AddProdToListFragment.newInstance(ListData.listId, ListData.listName)
 
-        navController.navigate(R.id.action_listFragment_to_addProdToListFragment)
+        navController.navigate(R.id.action_listFragment_to_addProdToListFragment, bundle) // wrzucamy bundla do argumentów fragmentu
 
 
 

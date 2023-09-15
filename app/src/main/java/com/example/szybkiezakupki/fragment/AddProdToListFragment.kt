@@ -54,19 +54,20 @@ class AddProdToListFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         // Inflate the layout for this fragment
 
-        Log.d("OnCreatedView", "Received listName: ${listNameAr}")
+        // Pobieramy z argumentów informacje o liście
+        ListData = ListData(arguments?.getString("listId").toString(), arguments?.getString("listName").toString(), false)
+        Log.d("OnCreatedView", "Received listName: ${ListData?.listId}")
 
 
 
 
-            Log.d("OnCreatedView", "Received listName: ${ListData?.listId}")
+            Log.d("OnCreatedView", "Received listName: ${ListData?.listName}")
 
 
             // Teraz możesz użyć wszystkich zmiennych ProductData
-            binding.EtListNameDisplay.setText(ListData?.listName.toString())
+            binding.EtListNameDisplay.setText(ListData?.listName)
 
 
 
