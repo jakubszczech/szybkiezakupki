@@ -80,6 +80,7 @@ class AddProductFragment : DialogFragment() {
     private fun registerEvents() {
         binding.btnAdd1.setOnClickListener {
             val product = binding.etProductName.text.toString()
+
             val price = binding.EtPriceS.text.toString()
             val shelf = binding.EtShelfNumber.text.toString()
             val category= binding.EtCategoty.text.toString()
