@@ -18,6 +18,7 @@ class ProductAdapter(private val list:MutableList<ProductData> ) :
     }
 
 
+
     inner class ProductViewHolder( val binding: ProductListItemBinding): RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -51,5 +52,7 @@ class ProductAdapter(private val list:MutableList<ProductData> ) :
     interface ProductAdapterClicksInterface{
         fun onDeleteTaskBtnClicked(ProductData: ProductData)
         fun onEditTaskBtnClicked(ProductData: ProductData)
+
     }
+
 }
