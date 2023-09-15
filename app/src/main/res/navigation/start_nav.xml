@@ -117,6 +117,9 @@
         <action
             android:id="@+id/action_listFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_listFragment_to_addProdToListFragment"
+            app:destination="@id/addProdToListFragment" />
     </fragment>
     <fragment
         android:id="@+id/informationFragment"
@@ -144,5 +147,14 @@
         <action
             android:id="@+id/action_shopProductsFragment_to_shopHomeFragment"
             app:destination="@id/shopHomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addProdToListFragment"
+        android:name="com.example.szybkiezakupki.fragment.AddProdToListFragment"
+        android:label="fragment_add_prod_to_list"
+        tools:layout="@layout/fragment_add_prod_to_list" >
+        <action
+            android:id="@+id/action_addProdToListFragment_to_listFragment"
+            app:destination="@id/listFragment" />
     </fragment>
 </navigation>

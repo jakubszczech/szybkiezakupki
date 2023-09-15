@@ -40,6 +40,9 @@ class ListAdapter(private val list:MutableList<ListData> ) :
                 binding.editList.setOnClickListener {
                     listener?.onEditListBtnClicked(this)
                 }
+                binding.addProdToList.setOnClickListener {
+                    listener?.onAddProdToListClicked(this)
+                }
             }
         }
     }
@@ -50,5 +53,7 @@ class ListAdapter(private val list:MutableList<ListData> ) :
     interface ListAdapterClicksInterface{
         fun onDeleteListBtnClicked(ListData: ListData)
         fun onEditListBtnClicked(ListData: ListData)
+
+        fun onAddProdToListClicked(ListData: ListData)
     }
 }

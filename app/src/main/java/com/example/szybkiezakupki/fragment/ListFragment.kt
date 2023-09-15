@@ -2,6 +2,7 @@ package com.example.szybkiezakupki.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.szybkiezakupki.R
 import com.example.szybkiezakupki.databinding.FragmentListBinding
 import com.example.szybkiezakupki.utils.ListAdapter
 import com.example.szybkiezakupki.utils.ListData
@@ -30,7 +32,8 @@ class ListFragment : Fragment(), AddListFragment.DialogNextBtnClickListener,
     private var popUpDialog: AddListFragment?= null
     private lateinit var adapter: ListAdapter
     private lateinit var mList:MutableList<ListData>
-
+    private var popUpDialogList: AddListFragment?= null
+    private var popUpDialog2: AddProdToListFragment?= null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -210,7 +213,26 @@ class ListFragment : Fragment(), AddListFragment.DialogNextBtnClickListener,
         //TUTAJ WYSYLA DANE DO EDITU, KONTYNUACJA W NEW INSTANCE W ADD PRODUCT FRAGMENT
         popUpDialog= AddListFragment.newInstance(ListData.listId, ListData.listName, false)
         popUpDialog!!.setListener(this)
-        popUpDialog!!.show(childFragmentManager, AddProductFragment.TAG)
+        popUpDialog!!.show(childFragmentManager, AddListFragment.TAG)
+
+    }
+
+    override fun onAddProdToListClicked(ListData: ListData) {
+        val bundle = Bundle()
+        bundle.putString("listId", ListData.listId)
+        bundle.putString("listName", ListData.listName)
+        val fragment = AddProdToListFragment()
+        fragment.arguments = bundle// Przekazanie danych do nowego fragmentu
+        Log.d("MyFragment", "listId: ${fragment.arguments}, listName: ${ListData.listName}")
+
+        popUpDialog2= AddProdToListFragment.newInstance(ListData.listId, ListData.listName)
+
+        navController.navigate(R.id.action_listFragment_to_addProdToListFragment)
+
+
+
+
+
 
     }
 
