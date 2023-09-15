@@ -80,13 +80,12 @@ class AddProductFragment : DialogFragment() {
     private fun registerEvents() {
         binding.btnAdd1.setOnClickListener {
             val product = binding.etProductName.text.toString()
-
             val price = binding.EtPriceS.text.toString()
             val shelf = binding.EtShelfNumber.text.toString()
             val category= binding.EtCategoty.text.toString()
 
 
-            if (product.isNotEmpty()&& price.isNotEmpty() && shelf.isNotEmpty()&& category.isNotEmpty()) {
+            if (product.isNotEmpty()&& price.isNotEmpty() && shelf.isNotEmpty()&& category.isNotEmpty()&& !price.startsWith("-")&& !shelf.startsWith("-")) {
                 if(ProductData==null) {
                     listener.onSaveProd(product, price, shelf, category, binding.etProductName, binding.EtPriceS, binding.EtShelfNumber, binding.EtCategoty)
                 }else{
@@ -96,7 +95,7 @@ class AddProductFragment : DialogFragment() {
 
 
             } else {
-                Toast.makeText(context, "Podaj wszystkie informacje o produkcie", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Podaj poprawne informacje o produkcie", Toast.LENGTH_SHORT).show()
             }
         }
         binding.btnClose.setOnClickListener {
