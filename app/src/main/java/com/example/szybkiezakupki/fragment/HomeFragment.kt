@@ -70,7 +70,7 @@ class HomeFragment : Fragment(), AddProductFragment.DialogNextBtnClickListener,
                // }
 
                 //dzialajace rozwiazanie
-               /* for (taskSnapshot in snapshot.children) {
+                for (taskSnapshot in snapshot.children) {
                     val taskId = taskSnapshot.key ?: ""
                     val task = taskSnapshot.child("name").getValue(String::class.java)
                     val priceString = taskSnapshot.child("price").getValue(String::class.java)
@@ -79,11 +79,11 @@ class HomeFragment : Fragment(), AddProductFragment.DialogNextBtnClickListener,
                     val shelfNum=shelfNumString?.toInt()?: 0
                     val isPurchased = taskSnapshot.child("isPurchased").getValue(Boolean::class.java) ?: false
                     val category = taskSnapshot.child("category").getValue(String::class.java)
-                    val product = ProductData(taskId ?: "", task ?: "", price ?: 0.0f, shelfNum ?: 0, isPurchased ?: false, category :? "")
+                    val product = ProductData(taskId ?: "", task ?: "", price ?: 0.0f, shelfNum ?: 0, isPurchased ?: false, category ?:"")
 
 
                     mList.add(product)
-                }*/
+                }
                 adapter.notifyDataSetChanged()
             }
 
@@ -113,7 +113,9 @@ class HomeFragment : Fragment(), AddProductFragment.DialogNextBtnClickListener,
         auth= FirebaseAuth.getInstance()
         databaseRef = FirebaseDatabase.getInstance().reference
             .child("Product")//.child(auth.currentUser?.uid.toString()) //test dostepnosci wszystkich produktow
+      //  val databaseRef = FirebaseDatabase.getInstance().reference
 
+       // val productListRef = databaseRef.child("List").child(auth.currentUser?.uid.toString()).child("IDs")
 
         binding.rvList.setHasFixedSize(true)
         binding.rvList.layoutManager = LinearLayoutManager(context)

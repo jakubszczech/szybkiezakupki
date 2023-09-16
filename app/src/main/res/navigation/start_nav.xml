@@ -108,6 +108,9 @@
         <action
             android:id="@+id/action_shopListFragment_to_shopHomeFragment"
             app:destination="@id/shopHomeFragment" />
+        <action
+            android:id="@+id/action_shopListFragment_to_addProdToListFragment"
+            app:destination="@id/addProdToListFragment" />
     </fragment>
     <fragment
         android:id="@+id/listFragment"
@@ -156,5 +159,8 @@
         <action
             android:id="@+id/action_addProdToListFragment_to_listFragment"
             app:destination="@id/listFragment" />
+        <action
+            android:id="@+id/action_addProdToListFragment_to_shopListFragment"
+            app:destination="@id/shopListFragment" />
     </fragment>
 </navigation>
