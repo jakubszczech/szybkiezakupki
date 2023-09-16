@@ -16,13 +16,14 @@
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/rvList"
-    android:layout_width="413dp"
-    android:layout_height="557dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/rvList"
+        android:layout_width="413dp"
+        android:layout_height="557dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/AddProdToListBtn"
@@ -33,4 +34,14 @@
         android:text="Dodaj Produkt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/listSum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="36dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/AddProdToListBtn"
+        app:layout_constraintTop_toBottomOf="@+id/rvList" />
 </androidx.constraintlayout.widget.ConstraintLayout>

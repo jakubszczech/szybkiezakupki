@@ -15,20 +15,21 @@ import com.example.szybkiezakupki.databinding.FragmentHomeBinding
 import com.example.szybkiezakupki.databinding.FragmentShopListBinding
 import com.example.szybkiezakupki.utils.ProductAdapter
 import com.example.szybkiezakupki.utils.ProductData
+import com.example.szybkiezakupki.utils.ProductPreviewAdapter
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
 
 class ShopListFragment : Fragment(), AddProductFragment.DialogNextBtnClickListener,
-    ProductAdapter.ProductAdapterClicksInterface {
+    ProductPreviewAdapter.ProductPreviewAdapterClicksInterface {
 
     private lateinit var auth: FirebaseAuth
     private  lateinit var databaseRef : DatabaseReference
     private lateinit var navController: NavController
     private  lateinit var binding: FragmentShopListBinding
     private var popUpDialog: AddProductFragment?= null
-    private lateinit var adapter: ProductAdapter
+    private lateinit var adapter: ProductPreviewAdapter
     private lateinit var mList:MutableList<ProductData>
 
     override fun onCreateView(
@@ -102,7 +103,7 @@ class ShopListFragment : Fragment(), AddProductFragment.DialogNextBtnClickListen
         binding.rvList.setHasFixedSize(true)
         binding.rvList.layoutManager = LinearLayoutManager(context)
         mList= mutableListOf()
-        adapter= ProductAdapter(mList)
+        adapter= ProductPreviewAdapter(mList)
         adapter.setListener((this))
         binding.rvList.adapter= adapter
 
@@ -170,6 +171,10 @@ class ShopListFragment : Fragment(), AddProductFragment.DialogNextBtnClickListen
       //  popUpDialog!!.setListener(this)
       //  popUpDialog!!.show(childFragmentManager, AddProductFragment.TAG)
 
+    }
+
+    override fun onPurchaseProdBtnClicked(productData: ProductData) {
+        TODO("Not yet implemented")
     }
 
 
