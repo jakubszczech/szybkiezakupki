@@ -7,6 +7,20 @@
     android:layout_height="match_parent"
     tools:context=".fragment.HomeFragment">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.24" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.76" />
+
     <ImageView
         android:layout_width="85dp"
         android:layout_height="56dp"
@@ -20,7 +34,7 @@
         android:id="@+id/btnAdd"
         android:layout_width="85dp"
         android:layout_height="56dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:src="@drawable/add_prod"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,10 +62,11 @@
         android:id="@+id/MyListsBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="28dp"
         android:text="Moje Listy"
-        app:layout_constraintStart_toEndOf="@+id/ProfileBtn"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
         app:layout_constraintTop_toTopOf="parent" />
 
 

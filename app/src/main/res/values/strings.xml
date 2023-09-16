@@ -8,10 +8,10 @@
     <string name="enter_your_email">Wpisz swoj email</string>
     <string name="enter_your_pass">Wpisz swoje haslo</string>
     <string name="retype_your_pass">Wpisz ponownie swoje haslo</string>
-    <string name="not_registered">Nie zarejestrowany?</string>
-    <string name="register">Zarejestruj sie</string>
+    <string name="not_registered">Nie posiadasz konta?</string>
+    <string name="register"><u>Zarejestruj sie!</u></string>
     <string name="alredy_register">Masz juz konto?</string>
-    <string name="login">Zaloguj sie</string>
+    <string name="login"><u>Zaloguj sie</u></string>
     <string name="dodaj_produkt">Wpisz nazwe produktu</string>
     <string name="shop_name">Podaj nazwę sklepu</string>
     <string name="shop_address">Podaj adres sklepu</string>

@@ -12,7 +12,7 @@
         android:layout_width="402dp"
         android:layout_height="50dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="16dp"
         android:background="@color/white"
         android:hint="Podaj nazwe listy"
         android:inputType="textEmailAddress"
@@ -21,25 +21,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_close" />
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:background="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/etListName"
+        app:layout_constraintTop_toBottomOf="@+id/etListName" />
+
     <ImageView
         android:id="@+id/btnAdd1"
         android:layout_width="34dp"
         android:layout_height="36dp"
 
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:src="@drawable/add_1_prod"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_close" />
+        app:layout_constraintTop_toBottomOf="@+id/etListName" />
 
     <ImageView
         android:id="@+id/btn_close"
         android:layout_width="33dp"
         android:layout_height="40dp"
-        android:layout_marginStart="352dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:src="@drawable/close_prod"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
