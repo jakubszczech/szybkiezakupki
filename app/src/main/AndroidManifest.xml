@@ -12,6 +12,7 @@
         android:theme="@style/Theme.Szybkiezakupki"
         tools:targetApi="31">
         <activity
+            android:windowSoftInputMode="adjustPan"
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

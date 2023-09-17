@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.szybkiezakupki.R
 import com.example.szybkiezakupki.databinding.FragmentAddListBinding
@@ -73,6 +74,10 @@ class AddProdToListFragment : Fragment(),AddProductFragment.DialogNextBtnClickLi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Inflate the layout for this fragment
+
+        binding.backbtn3.setOnClickListener {
+            findNavController().popBackStack()  // Wróć do poprzedniego fragmentu
+        }
 
         binding.AddProdToListBtn.setOnClickListener {
             navController.navigate(R.id.action_addProdToListFragment_to_shopListFragment)

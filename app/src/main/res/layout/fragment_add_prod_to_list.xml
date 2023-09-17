@@ -10,10 +10,22 @@
         android:id="@+id/EtListNameDisplay"
         android:layout_width="245dp"
         android:layout_height="46dp"
-        android:layout_marginStart="80dp"
         android:layout_marginTop="16dp"
         android:textAlignment="center"
-        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/backbtn3"
+        android:layout_width="79dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:src="@android:drawable/ic_menu_revert"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
