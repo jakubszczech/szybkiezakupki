@@ -59,7 +59,7 @@ class EntryFragment : Fragment() {
                               }
                                 else
                               {
-                                  navController.navigate(R.id.action_entryFragment_to_homeFragment)
+                                  navController.navigate(R.id.action_entryFragment_to_listFragment)
                               }
                             }
                         }

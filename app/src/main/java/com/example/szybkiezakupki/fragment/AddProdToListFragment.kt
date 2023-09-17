@@ -93,7 +93,7 @@ class AddProdToListFragment : Fragment(),AddProductFragment.DialogNextBtnClickLi
 
         init(view)
         getDataFromFirebase()
-        binding.listSum.setText(listSum.toString())
+
 
     }
     private fun init(view: View) {
@@ -155,6 +155,8 @@ class AddProdToListFragment : Fragment(),AddProductFragment.DialogNextBtnClickLi
                                     UserIdList.add(userId)
 
                             }
+                            mList.clear()
+                            listSum=0.0f
                             for(element in UserIdList) {
                                 Log.d("1.5getdatafromfirebase", "Received userID: ${element}")
                                 databaseRef = FirebaseDatabase.getInstance().reference.child("Product").child(element)
@@ -180,9 +182,11 @@ class AddProdToListFragment : Fragment(),AddProductFragment.DialogNextBtnClickLi
                                                     isPurchased ?: false,
                                                     category ?: ""
                                                 )
-                                                listSum+=price
+
                                                 mList.add(product)
+                                                listSum+=price
                                                 Log.d("3getdatafromfirebase", "Received mlist: ${mList}")
+                                                binding.listSum.setText(listSum.toString())
                                             }
                                         }
                                         adapter.notifyDataSetChanged()
@@ -203,45 +207,51 @@ class AddProdToListFragment : Fragment(),AddProductFragment.DialogNextBtnClickLi
                         }
 
                     })
+        prodIdList.clear()
+        UserIdList.clear()
         /////////////
         //pobranie danych nt produktow z prodIdList
-        for(element in UserIdList) {
-            Log.d("1.5getdatafromfirebase", "Received userID: ${element}")
-            databaseRef = FirebaseDatabase.getInstance().reference.child("Product").child(element)
-            databaseRef.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    //dzialajace rozwiazanie
-                    for (taskSnapshot in snapshot.children) {
-                        val taskId = taskSnapshot.key ?: ""
-                        Log.d("2getdatafromfirebase", "Received prodid: ${taskId}")
-                        if(taskId in prodIdList) {
-                            val task = taskSnapshot.child("name").getValue(String::class.java)
-                            val priceString = taskSnapshot.child("price").getValue(String::class.java)
-                            val price = priceString?.toFloat() ?: 0.0f
-                            val shelfNumString = taskSnapshot.child("shelfNum").getValue(String::class.java)
-                            val shelfNum = shelfNumString?.toInt() ?: 0
-                            val isPurchased = taskSnapshot.child("isPurchased").getValue(Boolean::class.java) ?: false
-                            val category = taskSnapshot.child("category").getValue(String::class.java)
-                            val product = ProductData(
-                                taskId ?: "",
-                                task ?: "",
-                                price ?: 0.0f,
-                                shelfNum ?: 0,
-                                isPurchased ?: false,
-                                category ?: ""
-                            )
-                            mList.add(product)
-                            Log.d("3getdatafromfirebase", "Received mlist: ${mList}")
-                        }
-                    }
-                    adapter.notifyDataSetChanged()
-                }
-                override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(context, error.message, Toast.LENGTH_SHORT)
-                        .show()
-                }
-            })
-        }
+       // for(element in UserIdList) {
+       //     Log.d("1.5getdatafromfirebase", "Received userID: ${element}")
+       //     databaseRef = FirebaseDatabase.getInstance().reference.child("Product").child(element)
+       //     databaseRef.addValueEventListener(object : ValueEventListener {
+       //         override fun onDataChange(snapshot: DataSnapshot) {
+       //             //dzialajace rozwiazanie
+       //             for (taskSnapshot in snapshot.children) {
+       //                 val taskId = taskSnapshot.key ?: ""
+       //                 Log.d("2getdatafromfirebase", "Received prodid: ${taskId}")
+       //                 if(taskId in prodIdList) {
+       //                     val task = taskSnapshot.child("name").getValue(String::class.java)
+       //                     val priceString = taskSnapshot.child("price").getValue(String::class.java)
+       //                     val price = priceString?.toFloat() ?: 0.0f
+       //                     val shelfNumString = taskSnapshot.child("shelfNum").getValue(String::class.java)
+       //                     val shelfNum = shelfNumString?.toInt() ?: 0
+       //                     val isPurchased = taskSnapshot.child("isPurchased").getValue(Boolean::class.java) ?: false
+       //                     val category = taskSnapshot.child("category").getValue(String::class.java)
+       //                     val product = ProductData(
+       //                         taskId ?: "",
+       //                         task ?: "",
+       //                         price ?: 0.0f,
+       //                         shelfNum ?: 0,
+       //                         isPurchased ?: false,
+       //                         category ?: ""
+       //                     )
+//
+       //                     mList.add(product)
+       //                     listSum += product.price!!
+       //                     Log.d("3getdatafromfirebase", "Received mlist: ${mList}")
+       //                     Log.d("price", "price: ${listSum}")
+//
+       //                 }
+       //             }
+       //             adapter.notifyDataSetChanged()
+       //         }
+       //         override fun onCancelled(error: DatabaseError) {
+       //             Toast.makeText(context, error.message, Toast.LENGTH_SHORT)
+       //                 .show()
+       //         }
+       //     })
+       // }
 
                                 //////
     }

@@ -58,7 +58,7 @@ class InformationFragment : Fragment() {
                     database.child("users").child(userId).setValue(userData)
                         .addOnSuccessListener {
                             // Sukces - dane zapisane
-                            navController.navigate(R.id.action_informationFragment_to_homeFragment)
+                            navController.navigate(R.id.action_informationFragment_to_listFragment)
                             Toast.makeText(context, "Dane zapisane", Toast.LENGTH_SHORT).show()
                         }
                         .addOnFailureListener {

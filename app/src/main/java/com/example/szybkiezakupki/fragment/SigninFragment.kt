@@ -101,7 +101,7 @@ class SigninFragment : Fragment() {
                                 if (userData1.acctype == true) {
                                     navController.navigate(R.id.action_signinFragment_to_shopHomeFragment)
                                 } else {
-                                    navController.navigate(R.id.action_signinFragment_to_homeFragment)
+                                    navController.navigate(R.id.action_signinFragment_to_listFragment)
                                 }
                             }
                         }

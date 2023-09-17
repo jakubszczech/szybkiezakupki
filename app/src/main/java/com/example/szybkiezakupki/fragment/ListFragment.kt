@@ -48,8 +48,8 @@ class ListFragment : Fragment(), AddListFragment.DialogNextBtnClickListener,
         getDataFromFirebase()
         addList()
 
-        binding.backbtn.setOnClickListener{
-           findNavController().popBackStack()
+        binding.ProfileBtn.setOnClickListener{
+           navController.navigate(R.id.action_listFragment_to_profileFragment)
         }
 
     }
