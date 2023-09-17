@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -265,10 +266,10 @@ class AddProdToListFragment : Fragment(),AddProductFragment.DialogNextBtnClickLi
         price: String,
         shelf: String,
         category: String,
-        etProductName: TextInputEditText,
-        EtPriceS: TextInputEditText,
-        EtShelfNumber: TextInputEditText,
-        EtCategory: TextInputEditText
+        etProductName: EditText,
+        EtPriceS: EditText,
+        EtShelfNumber: EditText,
+        EtCategory: EditText
     ) {
         TODO("Not yet implemented")
     }
@@ -278,10 +279,10 @@ class AddProdToListFragment : Fragment(),AddProductFragment.DialogNextBtnClickLi
         price: String,
         shelf: String,
         category: String,
-        etProductName: TextInputEditText,
-        EtPriceS: TextInputEditText,
-        EtShelfNumber: TextInputEditText,
-        EtCategory: TextInputEditText
+        etProductName: EditText,
+        EtPriceS: EditText,
+        EtShelfNumber: EditText,
+        EtCategory: EditText
     ) {
         TODO("Not yet implemented")
     }

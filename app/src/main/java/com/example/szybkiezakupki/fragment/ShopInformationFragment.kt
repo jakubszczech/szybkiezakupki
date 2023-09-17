@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.szybkiezakupki.R
 import com.example.szybkiezakupki.databinding.ShopFragmentInformationBinding
 import com.example.szybkiezakupki.utils.UserData
@@ -67,6 +68,10 @@ class ShopInformationFragment : Fragment() {
                         }
                 }
             }
+        }
+
+        binding.backbtn.setOnClickListener {
+            findNavController().popBackStack()  // Wróć do poprzedniego fragmentu
         }
 
     }

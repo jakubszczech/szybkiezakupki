@@ -7,67 +7,66 @@
     tools:context=".fragment.AddProductFragment">
 
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/etProductName"
-        android:layout_width="402dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="48dp"
-        android:background="@color/white"
-        android:hint="@string/dodaj_produkt"
-        android:inputType="text"
-        android:paddingStart="8dp"
-        android:paddingTop="5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_close" />
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kategoria produktu:"
+        app:layout_constraintBottom_toTopOf="@+id/EtCategoty"
+        app:layout_constraintStart_toStartOf="@+id/EtCategoty" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/EtShelfNumber"
-        android:layout_width="410dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="196dp"
-        android:background="@color/white"
-        android:hint="Wpisz numer polki"
-        android:inputType="number"
-        android:paddingStart="8dp"
-        android:paddingTop="5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_close" />
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Numer półki:"
+        app:layout_constraintBottom_toTopOf="@+id/EtShelfNumber"
+        app:layout_constraintStart_toStartOf="@+id/EtShelfNumber" />
 
-    <com.google.android.material.textfield.TextInputEditText
+    <EditText
         android:id="@+id/EtCategoty"
-        android:layout_width="410dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="276dp"
-        android:background="@color/white"
-        android:hint="Wpisz kategorie produktu"
+        android:layout_width="380dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="Wpisz kategorię produktu"
         android:inputType="text"
-        android:paddingStart="8dp"
-        android:paddingTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_close" />
+        app:layout_constraintTop_toBottomOf="@+id/EtShelfNumber" />
 
-    <com.google.android.material.textfield.TextInputEditText
+    <EditText
         android:id="@+id/EtPriceS"
-        android:layout_width="410dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="120dp"
-        android:background="@color/white"
-        android:hint="Wpisz cene produktu"
-        android:inputType="number"
-        android:paddingStart="8dp"
-        android:paddingTop="5dp"
+        android:layout_width="380dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="Wpisz cenę produktu"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_close" />
+        app:layout_constraintTop_toBottomOf="@+id/etProductName" />
 
-    <ImageView
+    <EditText
+        android:id="@+id/EtShelfNumber"
+        android:layout_width="380dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="Wpisz numer półki"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EtPriceS" />
+
+    <Button
         android:id="@+id/btnAdd1"
-        android:layout_width="34dp"
-        android:layout_height="36dp"
-
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="24dp"
-        android:src="@drawable/add_1_prod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="Dodaj/Aktualizuj"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EtCategoty" />
 
@@ -75,11 +74,53 @@
         android:id="@+id/btn_close"
         android:layout_width="33dp"
         android:layout_height="40dp"
-        android:layout_marginStart="352dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
         android:src="@drawable/close_prod"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Dodaj/Modyfikuj produkt"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etProductName"
+        android:layout_width="380dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="Wpisz nazwę produktu"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_close" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:text="Nazwa produktu:"
+        app:layout_constraintBottom_toTopOf="@+id/etProductName"
+        app:layout_constraintStart_toStartOf="@+id/etProductName" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cena produktu:"
+        app:layout_constraintBottom_toTopOf="@+id/EtPriceS"
+        app:layout_constraintStart_toStartOf="@+id/EtPriceS" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
