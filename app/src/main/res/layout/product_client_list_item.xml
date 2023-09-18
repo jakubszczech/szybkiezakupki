@@ -95,7 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="28dp"
             android:src="@drawable/edit_product"
-            android:visibility="invisible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/deleteTask"
             app:layout_constraintTop_toTopOf="parent"
@@ -107,7 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
             android:src="@drawable/purchased_prod"
-            android:visibility="invisible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/deleteTask"
             app:layout_constraintTop_toTopOf="parent"
@@ -147,12 +147,10 @@
 
         <CheckBox
             android:id="@+id/checkBoxIsPurchased"
-            android:layout_width="135dp"
+            android:layout_width="wrap_content"
             android:layout_height="21dp"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="44dp"
             android:text="Zakupiony"
-            app:layout_constraintStart_toEndOf="@+id/EtPrice"
+            app:layout_constraintEnd_toEndOf="@+id/textCurrency2"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
