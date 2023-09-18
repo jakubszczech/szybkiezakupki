@@ -30,8 +30,12 @@ class AddProductFragment : DialogFragment() {
             arguments = Bundle().apply {
                 putString("taskId", taskId)
                 putString("task", task)
-                putString("price", price.toString())
-                putString("shelf", shelf.toString())
+                if (price != null) {
+                    putFloat("price", price)
+                }
+                if (shelf != null) {
+                    putInt("shelfNum", shelf)
+                }
                 putString("category", category)
             }
         }

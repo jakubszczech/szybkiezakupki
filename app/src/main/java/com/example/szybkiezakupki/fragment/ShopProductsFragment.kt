@@ -159,9 +159,13 @@ class ShopProductsFragment: Fragment(), AddProductFragment.DialogNextBtnClickLis
 
     override fun onUpdateProd(ProductData: ProductData, price: String, shelf: String, category: String, etProductName: TextInputEditText, EtPriceS: TextInputEditText, EtShelfNumber: TextInputEditText, EtCategory: TextInputEditText) {
         val map= HashMap<String, Any>()
-        map[ProductData.taskId]= ProductData.task
+        val currentList = databaseRef.child(ProductData.taskId)
+        map["name"]= ProductData.task
+        map["price"]= price
+        map["category"]= category
+        map["shelfNum"]= shelf
 
-        databaseRef.updateChildren(map).addOnCompleteListener {
+        currentList.updateChildren(map).addOnCompleteListener {
             if (it.isSuccessful) {
                 Toast.makeText(context, "Zmodyfikowano", Toast.LENGTH_SHORT).show()
 
@@ -186,12 +190,12 @@ class ShopProductsFragment: Fragment(), AddProductFragment.DialogNextBtnClickLis
         }
 
     }
-    override fun onEditTaskBtnClicked(ProductData: ProductData) {
+    override fun onEditTaskBtnClicked(productData: ProductData) {
         if(popUpDialog!=null)
             childFragmentManager.beginTransaction().remove(popUpDialog!!).commit()
 
 
-        popUpDialog= AddProductFragment.newInstance(ProductData.taskId, ProductData.task, ProductData.price, ProductData.shelfNum, ProductData.category)
+        popUpDialog= AddProductFragment.newInstance(productData.taskId, productData.task, productData.price, productData.shelfNum, productData.category)
         popUpDialog!!.setListener(this)
         popUpDialog!!.show(childFragmentManager, AddProductFragment.TAG)
 

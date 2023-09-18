@@ -180,8 +180,11 @@ class ListFragment : Fragment(), AddListFragment.DialogNextBtnClickListener,
 
     override fun onUpdateProd(ListData: ListData, etListName: TextInputEditText) {
         val map= HashMap<String, Any>()
-        map[ListData.listId]= ListData.listName
-        databaseRef.updateChildren(map).addOnCompleteListener {
+        // edytujemy tylko jedno pole, żeby nie nadpisać dodanych produktów
+        val currentList = databaseRef.child(ListData.listId)
+        map["name"] = ListData.listName
+
+        currentList.updateChildren(map).addOnCompleteListener {
             if (it.isSuccessful) {
                 Toast.makeText(context, "Zmodyfikowano", Toast.LENGTH_SHORT).show()
 
