@@ -7,9 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.szybkiezakupki.R
 import com.example.szybkiezakupki.databinding.FragmentAddListBinding
@@ -73,6 +75,10 @@ class AddProdToListFragment : Fragment(),AddProductFragment.DialogNextBtnClickLi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Inflate the layout for this fragment
+
+        binding.backbtn3.setOnClickListener {
+            findNavController().popBackStack()  // Wróć do poprzedniego fragmentu
+        }
 
         binding.AddProdToListBtn.setOnClickListener {
 
@@ -230,10 +236,10 @@ class AddProdToListFragment : Fragment(),AddProductFragment.DialogNextBtnClickLi
         price: String,
         shelf: String,
         category: String,
-        etProductName: TextInputEditText,
-        EtPriceS: TextInputEditText,
-        EtShelfNumber: TextInputEditText,
-        EtCategory: TextInputEditText
+        etProductName: EditText,
+        EtPriceS: EditText,
+        EtShelfNumber: EditText,
+        EtCategory: EditText
     ) {
         TODO("Not yet implemented")
     }
@@ -243,10 +249,10 @@ class AddProdToListFragment : Fragment(),AddProductFragment.DialogNextBtnClickLi
         price: String,
         shelf: String,
         category: String,
-        etProductName: TextInputEditText,
-        EtPriceS: TextInputEditText,
-        EtShelfNumber: TextInputEditText,
-        EtCategory: TextInputEditText
+        etProductName: EditText,
+        EtPriceS: EditText,
+        EtShelfNumber: EditText,
+        EtCategory: EditText
     ) {
         TODO("Not yet implemented")
     }

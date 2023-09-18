@@ -7,10 +7,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.szybkiezakupki.R
 import com.example.szybkiezakupki.databinding.FragmentShopProductsBinding
 import com.example.szybkiezakupki.utils.ProductAdapter
 import com.example.szybkiezakupki.utils.ProductData
@@ -41,6 +44,9 @@ class ShopProductsFragment: Fragment(), AddProductFragment.DialogNextBtnClickLis
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.backbtn.setOnClickListener {
+            findNavController().popBackStack()  // Wróć do poprzedniego fragmentu
+        }
 
         init(view)
         getDataFromFirebase()
@@ -119,7 +125,7 @@ class ShopProductsFragment: Fragment(), AddProductFragment.DialogNextBtnClickLis
         binding.rvList.adapter= adapter
     }
 
-    override fun onSaveProd(prod: String, price: String, shelf: String, category: String, etProductName: TextInputEditText, EtPriceS: TextInputEditText, EtShelfNumber: TextInputEditText, EtCategory: TextInputEditText) {
+    override fun onSaveProd(prod: String, price: String, shelf: String, category: String, etProductName: EditText, EtPriceS: EditText, EtShelfNumber: EditText, EtCategory: EditText) {
       // databaseRef.push().setValue(prod).addOnCompleteListener{
       //     if(it.isSuccessful)
       //     {
@@ -157,7 +163,7 @@ class ShopProductsFragment: Fragment(), AddProductFragment.DialogNextBtnClickLis
         }
     }
 
-    override fun onUpdateProd(ProductData: ProductData, price: String, shelf: String, category: String, etProductName: TextInputEditText, EtPriceS: TextInputEditText, EtShelfNumber: TextInputEditText, EtCategory: TextInputEditText) {
+    override fun onUpdateProd(ProductData: ProductData, price: String, shelf: String, category: String, etProductName: EditText, EtPriceS: EditText, EtShelfNumber: EditText, EtCategory: EditText) {
         val map= HashMap<String, Any>()
         val currentList = databaseRef.child(ProductData.taskId)
         map["name"]= ProductData.task

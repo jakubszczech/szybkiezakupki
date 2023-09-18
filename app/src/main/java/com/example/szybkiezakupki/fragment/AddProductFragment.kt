@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.szybkiezakupki.databinding.FragmentAddProductBinding
@@ -108,8 +109,8 @@ class AddProductFragment : DialogFragment() {
     }
 
     interface DialogNextBtnClickListener {
-        fun onSaveProd(prod: String, price: String, shelf: String, category: String, etProductName: TextInputEditText, EtPriceS: TextInputEditText, EtShelfNumber: TextInputEditText, EtCategory: TextInputEditText)
-        fun onUpdateProd(ProductData: ProductData, price: String, shelf: String, category: String, etProductName: TextInputEditText, EtPriceS: TextInputEditText, EtShelfNumber: TextInputEditText, EtCategory: TextInputEditText)
+        fun onSaveProd(prod: String, price: String, shelf: String, category: String, etProductName: EditText, EtPriceS: EditText, EtShelfNumber: EditText, EtCategory: EditText)
+        fun onUpdateProd(ProductData: ProductData, price: String, shelf: String, category: String, etProductName: EditText, EtPriceS: EditText, EtShelfNumber: EditText, EtCategory: EditText)
 
     }
 }

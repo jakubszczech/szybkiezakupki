@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -144,7 +145,7 @@ class ListFragment : Fragment(), AddListFragment.DialogNextBtnClickListener,
     //         popUpDialog!!.dismiss()
     //     }
     // }
-    override fun onSaveProd(list: String, etListName: TextInputEditText) {
+    override fun onSaveProd(list: String, etListName: EditText) {
         // databaseRef.push().setValue(prod).addOnCompleteListener{
         //     if(it.isSuccessful)
         //     {
@@ -178,7 +179,7 @@ class ListFragment : Fragment(), AddListFragment.DialogNextBtnClickListener,
     }
 
 
-    override fun onUpdateProd(ListData: ListData, etListName: TextInputEditText) {
+    override fun onUpdateProd(ListData: ListData, etListName: EditText) {
         val map= HashMap<String, Any>()
         // edytujemy tylko jedno pole, żeby nie nadpisać dodanych produktów
         val currentList = databaseRef.child(ListData.listId)

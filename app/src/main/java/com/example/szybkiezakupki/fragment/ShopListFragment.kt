@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -110,7 +111,7 @@ class ShopListFragment : Fragment(), AddProductFragment.DialogNextBtnClickListen
     }
 
 
-    override fun onSaveProd(prod: String, price: String, shelf: String, category: String, etProductName: TextInputEditText, EtPriceS: TextInputEditText, EtShelfNumber: TextInputEditText, EtCategory: TextInputEditText) {
+    override fun onSaveProd(prod: String, price: String, shelf: String, category: String, etProductName: EditText, EtPriceS: EditText, EtShelfNumber: EditText, EtCategory: EditText) {
 
       // val productData = mapOf(
       //     "name" to prod,
@@ -134,7 +135,7 @@ class ShopListFragment : Fragment(), AddProductFragment.DialogNextBtnClickListen
       // }
     }
 
-    override fun onUpdateProd(ProductData: ProductData, price: String, shelf: String, category: String, etProductName: TextInputEditText, EtPriceS: TextInputEditText, EtShelfNumber: TextInputEditText, EtCategory: TextInputEditText) {
+    override fun onUpdateProd(ProductData: ProductData, price: String, shelf: String, category: String, etProductName: EditText, EtPriceS: EditText, EtShelfNumber: EditText, EtCategory: EditText) {
       // val map= HashMap<String, Any>()
       // map[ProductData.taskId]= ProductData.task
       // databaseRef.updateChildren(map).addOnCompleteListener {

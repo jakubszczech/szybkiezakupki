@@ -7,6 +7,19 @@
     android:layout_height="match_parent"
     tools:context=".fragment.ShopInformationFragment">
 
+    <TextView
+        android:id="@+id/textChgShopHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
+        android:text="Edycja informacji o sklepie"
+        android:textColor="@color/black"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView1"
         android:layout_width="0dp"
@@ -27,17 +40,18 @@
             android:background="@color/white"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
-            app:hintEnabled="false" />
+            app:hintEnabled="false" >
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/shopNameEt"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/white"
-            android:hint="@string/shop_name"
-            android:inputType="text"
-            android:paddingStart="12dp"
-            android:paddingTop="15dp" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/shopNameEt"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:hint="@string/shop_name"
+                android:inputType="text"
+                android:paddingStart="12dp"
+                android:paddingTop="15dp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
     </com.google.android.material.card.MaterialCardView>
@@ -113,6 +127,16 @@
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/backbtn"
+        android:layout_width="79dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:src="@android:drawable/ic_menu_revert"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
