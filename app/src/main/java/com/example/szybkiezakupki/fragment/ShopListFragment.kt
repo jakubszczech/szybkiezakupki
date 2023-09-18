@@ -177,5 +177,9 @@ class ShopListFragment : Fragment(), AddProductFragment.DialogNextBtnClickListen
         TODO("Not yet implemented")
     }
 
+    override fun onAddProdBtnClicked(productData: ProductData) {
+        TODO("Not yet implemented")
+    }
+
 
 }

@@ -103,7 +103,7 @@ class ListFragment : Fragment(), AddListFragment.DialogNextBtnClickListener,
         navController = Navigation.findNavController(view)
         auth= FirebaseAuth.getInstance()
         databaseRef = FirebaseDatabase.getInstance().reference
-            .child("List").child(auth.currentUser?.uid.toString()) //test dostepnosci wszystkich produktow
+            .child("List").child(auth.currentUser?.uid.toString())
 
 
         binding.rvListOfLists.setHasFixedSize(true)

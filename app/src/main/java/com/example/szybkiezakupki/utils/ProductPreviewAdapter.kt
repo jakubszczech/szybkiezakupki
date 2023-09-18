@@ -36,10 +36,10 @@ class ProductPreviewAdapter(private val list:MutableList<ProductData> ) :
                 binding.EtCategory.text=this.category
 
 
-              //  binding.deleteTask.setOnClickListener{
+               binding.EtPrice.setOnClickListener{
 //
-               //     listener?.onDeleteTaskBtnClicked(this)
-               // }
+                   listener?.onAddProdBtnClicked(this)
+                }
                ///  binding.editTask.setOnClickListener {
                 //      listener?.onEditTaskBtnClicked(this)
                 //  }
@@ -59,6 +59,7 @@ class ProductPreviewAdapter(private val list:MutableList<ProductData> ) :
         fun onDeleteTaskBtnClicked(ProductData: ProductData)
         fun onEditTaskBtnClicked(ProductData: ProductData)
         fun onPurchaseProdBtnClicked(productData: ProductData)
+        fun onAddProdBtnClicked(productData: ProductData)
 
     }
 

@@ -2,6 +2,7 @@ package com.example.szybkiezakupki.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -139,6 +140,9 @@ class ShopProductsFragment: Fragment(), AddProductFragment.DialogNextBtnClickLis
             "category" to category
         )
 
+
+
+        Log.d("OnAddProdBtn", "DbrefId: ${databaseRef}")
         databaseRef.push().setValue(productData).addOnCompleteListener {
             if (it.isSuccessful) {
                 Toast.makeText(context, "Produkt dodany pomyslnie", Toast.LENGTH_SHORT).show()
