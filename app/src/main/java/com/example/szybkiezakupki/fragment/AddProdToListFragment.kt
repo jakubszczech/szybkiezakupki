@@ -122,7 +122,7 @@ class AddProdToListFragment : Fragment(),AddProductFragment.DialogNextBtnClickLi
                 for (taskSnapshot in snapshot.children) {
                     val taskId = taskSnapshot.key ?: ""
                     if(!taskId.startsWith("nam")) {
-                        prodIdList.add(taskId)
+                        prodIdList.add(taskSnapshot.value.toString())
                         Log.d("getdatafromfirebase", "Received prod: ${prodIdList}")
                     }
                 }
