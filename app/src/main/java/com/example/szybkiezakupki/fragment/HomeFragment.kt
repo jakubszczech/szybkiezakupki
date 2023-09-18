@@ -64,27 +64,27 @@ class HomeFragment : Fragment(), AddProductFragment.DialogNextBtnClickListener,
 
     private fun getDataFromFirebase() {
         //pobranie ID produktow przypisanych do listy
-        databaseRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                mList.clear()
-
-
-                //dzialajace rozwiazanie
-                for (taskSnapshot in snapshot.children) {
-                    val taskId = taskSnapshot.key ?: ""
-                    if(!taskId.startsWith("nam")) {
-                        prodIdList.add(taskId)
-                        Log.d("getdatafromfirebase", "Received prod: ${prodIdList}")
-                    }
-                }
-                adapter.notifyDataSetChanged()
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
-            }
-
-        })
+//        databaseRef.addValueEventListener(object : ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                mList.clear()
+//
+//
+//                //dzialajace rozwiazanie
+//                for (taskSnapshot in snapshot.children) {
+//                    val taskId = taskSnapshot.key ?: ""
+//                    if(!taskId.startsWith("nam")) {
+//                        prodIdList.add(taskId)
+//                        Log.d("getdatafromfirebase", "Received prod: ${prodIdList}")
+//                    }
+//                }
+//                adapter.notifyDataSetChanged()
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
+//            }
+//
+//        })
         /////////////////////////////
         ///pobranie Id userow
 
@@ -337,7 +337,7 @@ class HomeFragment : Fragment(), AddProductFragment.DialogNextBtnClickListener,
         Log.d("OnAddProdBtn", "DbrefId: ${databaseRef}")
 
 
-        databaseRef.push().setValue(ProductData?.taskId).addOnCompleteListener{
+        databaseRef.push().setValue(productData?.taskId).addOnCompleteListener{
                if(it.isSuccessful)
                {
                     Toast.makeText(context, "Produkt dodany do listy ", Toast.LENGTH_SHORT).show()
